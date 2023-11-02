@@ -78,6 +78,30 @@ class TodoController extends Controller
     public function update(Request $request, Todo $todo)
     {
         $result = $todo->update([ 'done' => ($request->get('done') === 'on') ]);
+        
+        // Check if all related records with the same parent ID are done
+        if ($result) {
+            $parentId = $todo->parent_id;
+            if ($parentId) {
+                $relatedTodos = Todo::where('parent_id', $parentId)->get();
+                $allDone = true;
+                foreach ($relatedTodos as $relatedTodo) {
+                    if (!$relatedTodo->done) {
+                        $allDone = false;
+                        break;
+                    }
+                }
+                if ($allDone) {
+                    $parentTodo = Todo::find($parentId);
+                    if ($parentTodo) {
+                        $parentTodo->update(['done' => true]);
+                        $response = Http::get('https://api.chucknorris.io/jokes/random');
+                        session()->flash('alert-info', $response->value);
+                    }
+                }
+            }
+        }
+
         return response($result, $result ? 200 : 500);
     }
 
