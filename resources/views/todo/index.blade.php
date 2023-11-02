@@ -25,6 +25,15 @@
         <form action="{{route('todos.store')}}" method="post" class="create-todo">
             @csrf
             <div class="create-todo__input-group">
+                <label for="parent">Parent Todo</label>  <!-- generate possible parent todo's -->
+                <select name="parent" id="parent">
+                    <option value="0">No Parent (Hoofd Taak)</option>
+                    @foreach($todos as $todo)
+                        <option value="{{ ucfirst($todo->id) }}">{{ ucfirst($todo->title) }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="create-todo__input-group">
                 <label for="title">Title</label>
                 <input id="title" type="text" name="title">
             </div>

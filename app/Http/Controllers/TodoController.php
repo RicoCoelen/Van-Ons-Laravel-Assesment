@@ -39,7 +39,8 @@ class TodoController extends Controller
     {
         Todo::create([
             'title' => $request->get('title'),
-            'content' => $request->get('content')
+            'content' => $request->get('content'),
+            'parent_id' => $request->get('parent')
         ]);
 
         return redirect()->route('home');
