@@ -14,7 +14,12 @@
                 <p>{{ $bullet->content }}</p>
             </div>
             <div>
-
+            @foreach($todos as $item)  
+                @if($bullet->id == $item->parent_id) 
+                @php $task->id = $bullet->id @endphp
+                    @include('layout.todo', ['todos' => $todos, 'task' => $task])
+                @endif
+            @endforeach
             </div>
         </li>
 
