@@ -76,15 +76,28 @@ header {
     box-shadow: $box-shadow;
     border-radius: 1rem;
     margin-bottom: 2rem;
+    flex-wrap: wrap;
 
     input[type="checkbox"] {
         margin-right: 2rem;
     }
 }
 
-.todo-item__content {
+.todo-item-sub {
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    box-shadow: $box-shadow;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
 
+    input[type="checkbox"] {
+        margin-right: 2rem;
+    }
 }
+
+.todo-item__content {}
 
 .create-todo {
     padding: 2rem;

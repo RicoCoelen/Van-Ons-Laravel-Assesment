@@ -5,19 +5,25 @@
 @section('content')
     <div class="container">
         <ul class="todo-list">
-            @foreach($todos as $todo)
-                <li class="todo-item">
-                    <form class="todo-item__form" action="{{route('todos.update', $todo)}}" method="post">
-                        @method('PUT')
-                        @csrf
-                        <input type="checkbox" name="done" {{ $todo->done ? 'checked' : null }}>
-                    </form>
-                    <div class="todo-item__content">
-                        <h3>{{ ucfirst($todo->title) }}</h3>
-                        <p>{{ $todo->content }}</p>
-                    </div>
-                </li>
-            @endforeach
+        @foreach($todos as $todo)
+            @if($todo->parent_id < 1)
+            <li class="todo-item">
+                <form class="todo-item__form" action="{{route('todos.update', $todo)}}" method="post">
+                    @method('PUT')
+                    @csrf
+                    <input type="checkbox" name="done" {{ $todo->done ? 'checked' : null }}>
+                </form>
+                <div class="todo-item__content">
+                    <h3>{{ ucfirst($todo->title) }}</h3>
+                    <p>{{ $todo->content }}</p>
+                </div>
+                <div>
+                    @include('layout.todo', ['tasks' => $todos, 'task' => $todo, 'todos' => $todos])
+                </div>
+            </li>
+            @endif
+        @endforeach
+
         </ul>
 
         <h2>Create To-do</h2>
