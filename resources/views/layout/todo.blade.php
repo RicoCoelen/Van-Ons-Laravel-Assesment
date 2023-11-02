@@ -14,7 +14,7 @@
                 <p>{{ $bullet->content }}</p>
             </div>
             <div>
-                <!-- @include('layout.todo', ['todos' => $todos, 'task' => $task]) -->
+
             </div>
         </li>
 
